@@ -1,0 +1,25 @@
+@startuml
+
+skinparam componentStyle rectangle
+
+package ui {
+  [Commands] ..> [Output]
+  [Input]
+}
+
+package model {
+  [Clash] ..> [Game]
+  [Game] ..> [Board]
+  [Game] ..> [Square]
+  [Game] ..> [Piece]
+  [Board] ..> [Piece]
+  [Board] ..> [Square]
+}
+
+[Main] --> [Clash]
+[Main] --> [Commands]
+[Main] --> [Input]
+[Commands] -> [Clash]
+[Output] -> [Clash]
+
+@enduml

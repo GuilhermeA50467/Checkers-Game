@@ -1,0 +1,57 @@
+@startuml
+
+hide empty members
+
+abstract class Board <<sealed>>
+class BoardRun
+class BoardWin
+
+Board <|--right BoardRun
+Board <|--left BoardWin
+
+Player <--left BoardRun : turn
+Player <--up BoardWin : winner
+
+class Square {
+    index: Int
+}
+Square --> Row : row
+Square --> Column : col
+
+class Row {
+    index: Int
+    digit: Char
+}
+
+class Column {
+    index: Int
+    symbol: Char
+}
+
+class Piece {
+    canMove(): Boolean
+    canCapture(): Boolean
+}
+
+class Pawn
+class Queen
+
+<>moves
+Board --down> "*"moves : moves
+moves -left> Square
+moves -right> Piece
+
+Piece -> Player : player
+Pawn -up-|> Piece
+Queen -up-|> Piece
+
+
+enum Player{
+    b, w
+}
+
+class Game
+Player <--left Game : firstPlayer
+Game *--> "?"Board : board
+
+@enduml
